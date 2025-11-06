@@ -2,9 +2,10 @@
 // Configuration for database connection and app settings
 
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'labguard');
+define('DB_NAME', 'labguard1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+
 
 // App settings
 define('BASE_URL', '/'); // Adjust if not at web root

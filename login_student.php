@@ -43,8 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // SIGNUP
+    
     if (isset($_POST['signup'])) {
-        $name     = trim($_POST['name']);
+        $full_name     = trim($_POST['full_name']);
         $username = trim($_POST['username']);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $rollno   = trim($_POST['rollno']);
@@ -53,10 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $section  = trim($_POST['section']);
         $contact  = trim($_POST['contact']);
         $email  = trim($_POST['email']);
+        $student_id = $rollno;
+       
+       
 
-        if ($name && $username && $rollno && $branch && $sem && $section && $contact &&$email) {
-            $stmt = $conn->prepare("INSERT INTO student (full_name, username, password, rollno, branch, sem, section, contact,email) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)");
-            $stmt->bind_param("sssssssss", $name, $username, $password, $rollno, $branch, $sem, $section, $contact, $email);
+
+        if ( $full_name && $username && $rollno && $branch && $sem && $section && $contact &&$email  ) {
+            $stmt = $conn->prepare("INSERT INTO student (student_id ,full_name, username, password, rollno, branch, sem, section, contact,email) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)");
+            $stmt->bind_param("ssssssssss", $student_id, $full_name, $username, $password, $rollno, $branch, $sem, $section, $contact, $email);
             if ($stmt->execute()) {
                 $success = "Account created successfully! Please login.";
             } else {
@@ -231,7 +236,7 @@ function showForm(formId, btn) {
 
     <!-- Signup Form -->
     <form id="signupForm" method="post">
-        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="full_name" placeholder="Full Name" required>
         <input type="text" name="username" placeholder="Username" required>
         <input type="text" name="rollno" placeholder="Roll No" required>
         <input type="text" name="email" placeholder="Email" required>
